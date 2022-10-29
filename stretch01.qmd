@@ -280,3 +280,27 @@ api_pulls <- function(year, variablecode, name, statefips, countyfips) {
 
 ```
 
+## 4. Using `purrr()` to iterate
+
+```{r, warning=FALSE, message=FALSE}
+
+## Creating data to iterate over
+year <- c(2019, 2019, 2019, 2015, 2009, 2015)
+
+variablecode <- c("B19013_001E", "B15003_022E", "B17017_002E", 
+                  "B15003_022E", "B19013_001E", "B17017_002E")
+
+name <- c("Median Household Income", "Percent with Bachelors Degree", 
+          "Percent Below Povery Rate", "Percent with Bachelors Degree", 
+          "Median Household Income", "Percent Below Poverty Rate")
+
+state <- c(17, 12, 11, 40, 10, 08)
+
+county <- c(031, 03, 01, 09, 05, 05)
+
+## Iterating with purrr()
+pmap(list(year=year, variablecode=variablecode, name=name, state=state, county=county),
+     .f=api_pulls)
+
+```
+
