@@ -2,6 +2,7 @@
 title: "Stretch Exercise 01 - Assignment05"
 author: "Benjamin Reese"
 format: html
+self-contained: true
 ---
 
 
@@ -9,6 +10,7 @@ format: html
 ## Packages
 library(tidyverse)
 library(sf)
+library(lubridate)
 ```
 
 # Part One
