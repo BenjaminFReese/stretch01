@@ -264,7 +264,7 @@ api_pulls <- function(year, variablecode, name, statefips, countyfips) {
   in_string <- "in"
   tract_name <- api_stats$NAME[1]
   tract_name <- str_remove(string = tract_name, pattern = "Census Tract ......,*")
-  title <- str_c(name, sep=" ", in_string, tract_name)
+  title <- str_c(name, sep=" ", in_string, tract_name, in_string, year)
   
   m <- api_stats %>%
     rename(name := variablecode) %>%
@@ -273,9 +273,9 @@ api_pulls <- function(year, variablecode, name, statefips, countyfips) {
     labs(fill=name, title = title) +
     theme_void()
   
-  name_year <- str_c(name, year)
+  name_year <- str_c(tract_name, name, year)
   
-  ggsave(filename = str_c("image/", name_year, ".png"), device = "png", plot = m)
+  ggsave(filename = str_c("images/", name_year, ".png"), device = "png", plot = m)
 }
 
 ```
@@ -290,13 +290,13 @@ year <- c(2019, 2019, 2019, 2015, 2009, 2015)
 variablecode <- c("B19013_001E", "B15003_022E", "B17017_002E", 
                   "B15003_022E", "B19013_001E", "B17017_002E")
 
-name <- c("Median Household Income", "Percent with Bachelors Degree", 
-          "Percent Below Povery Rate", "Percent with Bachelors Degree", 
-          "Median Household Income", "Percent Below Poverty Rate")
+name <- c("Median Household Income", "Population with Bachelors Degree", 
+          "Population Below Povery Rate", "Population with Bachelors Degree", 
+          "Population Household Income", "Population Below Poverty Rate")
 
 state <- c(17, 12, 11, 40, 10, 08)
 
-county <- c(031, 03, 01, 09, 05, 05)
+county <- c(031, 03, 01, 09, 05, 03)
 
 ## Iterating with purrr()
 pmap(list(year=year, variablecode=variablecode, name=name, state=state, county=county),
