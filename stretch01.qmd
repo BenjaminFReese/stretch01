@@ -168,16 +168,10 @@ api_pulls <- function(year, variablecode, name, statefips, countyfips) {
     progress = FALSE
   )
   
-  in_string <- "in"
-  tract_name <- api_stats$NAME[1]
-  tract_name <- str_remove(string = tract_name, pattern = "Census Tract ......,*")
-  title <- str_c(name, sep=" ", in_string, tract_name)
-  
   m <- api_stats %>%
     rename(name := variablecode) %>%
     ggplot() +
     geom_sf(aes(fill=name))+
-    labs(fill=name, title = title) +
     theme_void()
   
   m
