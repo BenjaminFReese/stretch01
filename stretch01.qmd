@@ -33,7 +33,15 @@ l_shape <- st_transform(l_shape, crs = 4326)
 chi_shape <- st_transform(chi_shape, crs = 4326)
 ```
 
+## 2. Mapping L Station Locations Onto Chicago Census Tract Map
 
+```{r, warning=FALSE, message=FALSE}
+## Plotting L Train locations onto the Chicago Census Map
+ggplot() +
+  geom_sf(data=chi_shape) + 
+  geom_sf(data=l_shape) +
+  theme_void()
 
+```
 
 
