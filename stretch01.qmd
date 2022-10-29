@@ -59,3 +59,13 @@ stations_filtered <- st_filter(l_shape, chi_poly)
 
 ```
 
+## 4. Plotting L Train Station Locations Within Chicago Boundary
+
+```{r, warning=FALSE, message=FALSE}
+## Plotting Stations Within Chicago Boundary
+ggplot() +
+  geom_sf(data=chi_shape) +
+  geom_sf(data=stations_filtered)  +
+  theme_void()
+```
+
