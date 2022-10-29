@@ -5,6 +5,34 @@ format: html
 ---
 
 
+```{r, message=FALSE, warning=FALSE}
+## Packages
+library(tidyverse)
+library(sf)
+```
+
+# Part One
+
+## 1. Reading in L train and Chicago Shapefiles
+
+```{r, message=FALSE, warning=FALSE}
+## Chicago Shapefile
+chi_shape <- st_read("data/Boundaries - Census Tracts - 2010/geo_export_098913a2-eb78-48e6-944e-bdaaf19b94f6.shp")
+
+## Selecting only geoid10 and geometry
+chi_shape <- chi_shape %>%
+  select(geoid10, geometry)
+
+## L train shapefile
+l_shape <- st_read("data/CTARailLines/CTARailLines.shp")
+
+## Setting l_shape crs
+l_shape <- st_transform(l_shape, crs = 4326)  
+
+## Setting chi_shape crs
+chi_shape <- st_transform(chi_shape, crs = 4326)
+```
+
 
 
 
