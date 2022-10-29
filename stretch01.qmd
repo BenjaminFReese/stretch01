@@ -44,4 +44,18 @@ ggplot() +
 
 ```
 
+## 3. Performing Spatial Join to Filter Out L Train Stations Outside of Chicago
+
+```{r, warning=FALSE, message=FALSE}
+## Creating Chicago Boundaries
+chi_poly <- st_union(chi_shape)
+
+
+## Converting to sf object
+chi_poly <- st_sf(chi_poly)
+
+## Filtering and Joining
+stations_filtered <- st_filter(l_shape, chi_poly)
+
+```
 
