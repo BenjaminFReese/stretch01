@@ -11,6 +11,7 @@ self-contained: true
 library(tidyverse)
 library(sf)
 library(lubridate)
+library(tidycensus)
 ```
 
 # Part One
@@ -135,3 +136,54 @@ crime_stations %>%
 ```
 
 As shown in the tibble above, the Pulaski-Congress Station has the most nearby homicides with 45.
+
+## Part Two
+
+## 1. Creating the function and Roxygen skeleton
+
+```{r}
+#' api_pulls
+#' @description This function creates maps, with titles, of census variables for US counties. Input the year, name, census variable code, name you want to appear as the title and the state and county fips codes and the function returns a map. Only variables and results from the ACS.
+#' @author Benjamin Reese
+#' 
+#' @param year A numeric variable denoting the ending year of the ACS survey to be mapped. This argument is required.
+#' @param variablecode A character variable for the code of the variable to be mapped. This argument is required.
+#' @param name A character variable for the intended name to appear in title and legend. This argument is required.
+#' @param statefips A numeric variable for the state FIPS code to designate state. This argument is required.
+#' @param countyfips A numeric variable for the county FIPS code to designate county. This argument is required.
+#'
+#' @importFrom tidycensus, tidyverse
+#' @return Function returns a ggplot object map of a county, broken down by census tract, of the desired census variable with a legend and title using human inputed name.
+#'
+#' @examples api_pulls(year=2019, variablecode = "B19013_001E", name="Median Household Income", state =17, county = 031) api_pulls(year=2015, variablecode = "B19013_001E", name="Median Household Income", state =11, county = 01)
+api_pulls <- function(year, variablecode, name, statefips, countyfips) {
+  api_stats <- get_acs(
+    geography = "tract",
+    variables = c(variablecode),
+    state = statefips,
+    county = countyfips,
+    geometry = TRUE,
+    output = "wide",
+    year = year,
+    progress = FALSE
+  )
+  
+  in_string <- "in"
+  tract_name <- api_stats$NAME[1]
+  tract_name <- str_remove(string = tract_name, pattern = "Census Tract ......,*")
+  title <- str_c(name, sep=" ", in_string, tract_name)
+  
+  m <- api_stats %>%
+    rename(name := variablecode) %>%
+    ggplot() +
+    geom_sf(aes(fill=name))+
+    labs(fill=name, title = title) +
+    theme_void()
+  
+  m
+}
+
+api_pulls(year=2019, variablecode = "B19013_001E", name="Median Household Income", 
+          state =17, county = 031)
+```
+
