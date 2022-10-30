@@ -5,7 +5,6 @@ format: html
 self-contained: true
 ---
 
-
 ```{r, message=FALSE, warning=FALSE}
 ## Packages
 library(tidyverse)
@@ -229,6 +228,9 @@ api_pulls <- function(year, variablecode, name, statefips, countyfips) {
   m  
 
 }
+
+api_pulls(year=2015, variablecode = "B19013_001E", name="Median Household Income", 
+          state =05, county = 03)
 
 ```
 
