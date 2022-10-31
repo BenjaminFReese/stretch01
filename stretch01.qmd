@@ -72,7 +72,9 @@ ggplot() +
   theme_void()
 ```
 
-## 5. Identifying homicides WITHIN 400 meters of L Stations
+## 5. Identifying Homicides WITHIN 400 meters of L Stations
+
+In this section, I read in the crime data from assignment 5 and identify homicides within 400 meters of L stations. I am using `crimes_lim` which limits the data to homicides in the last 10 years.
 
 ```{r, warning=FALSE, message=FALSE}
 
