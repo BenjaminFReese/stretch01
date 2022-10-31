@@ -296,7 +296,7 @@ variablecode <- c("B19013_001E", "B15003_022E", "B17017_002E",
 
 name <- c("Median Household Income", "Population with Bachelors Degree", 
           "Population Below Povery Rate", "Population with Bachelors Degree", 
-          "Population Household Income", "Population Below Poverty Rate")
+          "Median Household Income", "Population Below Poverty Rate")
 
 state <- c(17, 12, 11, 40, 10, 08)
 
